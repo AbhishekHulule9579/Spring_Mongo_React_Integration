@@ -1,5 +1,6 @@
 package com.practice.controller;
 
+import com.practice.config.JwtUtil;
 import com.practice.model.User;
 import com.practice.repository.UserRepository;
 
@@ -9,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
 @CrossOrigin(origins = "http://localhost:3000")
+@RestController
 @RequestMapping("/auth")
 public class AuthController {
 
@@ -35,6 +36,7 @@ public class AuthController {
         if(!existing.getPassword().equals(user.getPassword())){
             throw new RuntimeException("Invalid Password");
         }
-        return "Login Successfull";
+        String token= JwtUtil.generateToken(existing.getUsername());
+        return token;
     }
 }

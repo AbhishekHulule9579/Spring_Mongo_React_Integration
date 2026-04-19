@@ -16,6 +16,7 @@ function Login(){
             })
         });
         const data =await response.text();
+        sessionStorage.setItem("token",data);
         alert(data);
     };
     return (
