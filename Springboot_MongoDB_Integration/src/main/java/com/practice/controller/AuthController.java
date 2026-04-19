@@ -26,4 +26,15 @@ public class AuthController {
         userRepository.save(user);
         return  "user register successfully";
     }
+
+    @PostMapping("/login")
+    public String login(@RequestBody User user){
+        User existing=userRepository.findByUsername(user.getUsername())
+        .orElseThrow(()->new RuntimeException("User not found"));
+
+        if(!existing.getPassword().equals(user.getPassword())){
+            throw new RuntimeException("Invalid Password");
+        }
+        return "Login Successfull";
+    }
 }
