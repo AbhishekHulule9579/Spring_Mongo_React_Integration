@@ -16,4 +16,17 @@ public class JwtUtil {
                 .signWith(SignatureAlgorithm.HS256,secert)
                 .compact();
     }
+
+    public static String extractUsername(String token){
+        return Jwts.parser()
+                .setSigningKey(secert)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
+
+    public static boolean validateToken(String token,String username){
+        String extracted=extractUsername(token);
+        return extracted.equals(username);
+    }
 }
