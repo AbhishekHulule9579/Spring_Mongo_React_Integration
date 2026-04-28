@@ -1,8 +1,11 @@
 import { useState } from "react";
 
+import {useNavigate} from "react-router-dom";
 function Login(){
     const[username,setUsername]=useState("");
     const[password,setPassword]=useState("");
+
+    const navigate=useNavigate();
 
     const handleLogin=async()=>{
         const response=await fetch("http://localhost:8080/auth/login",{
@@ -17,7 +20,8 @@ function Login(){
         });
         const data =await response.text();
         sessionStorage.setItem("token",data);
-        alert(data);
+        alert("Login successfull");
+        navigate("/dashboard");
     };
     return (
         <div>
